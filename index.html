@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inuko</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=ihhAjVklgqszZUdFrjCSZv0_tKY_AXXcMDjqaDOMsglFtHTBu1pL6XK5570DbWYEnjTU4C2pIQiHjzlFBCtoyihvlhUTOUJZLe8oNHbAQzghfg9nMMwcRjyhWUg_1Zmp3vtCVEXA5skUS12_p88Q4kVLfYFyQhmvYUTTHvODG_yNIvsTQNeovKr4v9r79sPBinKkEvzceNKXrHNyJrIJwyPCMEvdRw976S4PBeUEgJW4FYz4zcNkKBhLYY5mxGJOcCQrcBH505_4cSxK3yEWEGmCln2_XIhByKCWpgnEjh-PeQUBR_jpPsABTawilXjvAV-4O-6-ITUPaNY69946CL8YchqqbGTaxPpFYJ1OJDxBX-5KVkC4nupJR4eYYU3CSzWmPt6MsmvPHqWTNBXBU3EAaRPttilYqwCg6MAEfwakBEw-yY6VqS-WQKuXOriHhr1hIhbBIO6kF3qB9X6CX1ro1Q27shfOCniF936GApA" charset="UTF-8"></script></head>
+<body>
+    <section id="section-1" class="section">
+        <div class="upperRunningLine">
+            <div class="marquee-wrapper" id="marqueeContainerTop">
+                <span class="marquee-text">
+            </div>
+        </div>
+        <header class="main-header" id="mainHeader">
+            <div class="header-content">
+                <img src="images/minilogo.png" alt="Логотип" class="header-logo">
+                <nav class="header-nav">
+                    <a href="#menu" class="nav-link">ГЛАВНАЯ</a>
+                    <a href="#features" class="nav-link">ВОЗМОЖНОСТИ</a>
+                    <a href="#buy" class="nav-link">КУПИТЬ</a>
+                </nav>
+            </div>
+        </header>
+        <div class="container">
+            <div class="wave-overlay">
+                <svg class="wave-mount" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,63 
+                            C40,81 54,39 61,0
+                            L100,0 L100,100 L0,100 Z" 
+                        fill="currentColor"/>
+                </svg>
+                <svg class="wave" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,65 
+                            C40,82 55,40 62,0
+                            L100,0 L100,100 L0,100 Z" 
+                        fill="currentColor"/>
+                </svg>
+            </div>
+            <div class="block main-left-block">
+                <div class="vertical-block main-left-top-block">
+                    <div class="block">
+                        <div class="page-nav" id="pageNav">
+                            <a href="#menu" class="nav-link">ГЛАВНАЯ</a>
+                            <a href="#features" class="nav-link">ВОЗМОЖНОСТИ</a>
+                            <a href="#buy" class="nav-link">КУПИТЬ</a>
+                        </div>    
+                    </div>
+                </div>
+                
+                <div class="vertical-block main-left-middle-block">
+                    <div class="block">
+                        <img src="images/biglogo.png" class="main-biglogo">
+                    </div>
+                </div>
+                
+                <div class="vertical-block main-left-bottom-block">
+                    <div class="block">
+                        <button class="navigation-button" onclick="scrollToSection('section-2')">ПОДРОБНОСТИ</button>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="block main-right-block">
+                <div class="block main-right-top-block">
+                    <img src="images/esppreview.png" class="main-previewesp">
+                </div>
+                <div class="main-right-bottom-block">
+                    <div class="aspect-ratio-container" id="responsive-container">
+                        <div class="text-element" style="top: 14%; left: 5%; transform: rotate(-18deg);">SKELETON</div>
+                        <div class="text-element" style="top: 14%; left: 38%; transform: rotate(5deg);">LINES</div>
+                        <div class="text-element" style="top: 11%; left: 58%; transform: rotate(-13deg);">TEAM</div>
+                        <div class="text-element" style="top: 18%; left: 74%; transform: rotate(14deg);">HEALS</div>
+                        <div class="text-element" style="top: 27%; left: 26%; transform: rotate(24deg);">SEMIBOX</div>
+                        <div class="text-element" style="top: 28%; left: 53%; transform: rotate(5deg);">DISTANCE</div>
+                        <div class="text-element" style="top: 36%; left: 13%; transform: rotate(20deg);">NICKNAME</div>
+                        <div class="text-element" style="top: 45%; left: 40%; transform: rotate(-14deg);">HEALTH BAR</div>
+                        <div class="text-element" style="top: 62%; left: 20%; transform: rotate(17deg);">ALL LOOT ESP</div>
+                        <div class="text-element" style="top: 51%; left: 57%; transform: rotate(-13deg);">VEHICLE ESP</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="section-2" class="section">
+        <div class="container">
+            <div class="wave-overlay">
+                <svg class="wave-mount" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,72 
+                        C34,81 67,66 101,26
+                        L100,100 L100,0 L0,0 Z" 
+                    fill="currentColor"/>
+                </svg>
+                <svg class="wave" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,70 
+                        C33,80 66,65 100,25
+                        L100,100 L100,0 L0,0 Z" 
+                    fill="currentColor"/>
+                </svg>
+            </div>
+
+            <div class="slide-container">
+                <div class="menu-left-block">
+                    <div class="menu-left-top-block">
+                        <div class="interface-lemma">
+                            <div class="lemma-text">ИНТЕРФЕЙС</div>
+                        </div>
+                    </div>
+                    <div class="menu-left-middle-block">
+                        <div class="rounded-container-text-description">
+                            <div class="scalable-content">
+                                <ul class="custom-list">
+                                    <li>Настройте каждый элемент по своему — используйте любые цвета и комбинируйте функции ESP для удобного отображения врагов.</li>
+                                    <li>Попробуйте функционал затемнения врагов на дистанции и ограничение дальности прорисовки, чтобы сосредоточиться на ближайших целях.</li>
+                                    <li>Кастомизируйте каждую категорию предмета по цвету и отключите их отображение с помощью Battle mode [F10], если нужно сосредоточиться на противнике.</li>
+                                    <li>Включите радар, переместите его в любое удобное место, настройте масштаб и активируйте функцию направление противника, чтобы получить полную информацию об остановке на карте.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-left-bottom-block">
+                        <div class="block">
+                            <button class="navigation-button" onclick="scrollToSection('section-3')">ПОПРОБОВАТЬ</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="block menu-right-block">
+                    <div class="rounded-container-image-carousel">
+                        <div class="scalable-carousele-content">
+                            <div class="carousel">
+                                <div class="carousel-container">
+                                    <div class="carousel-slide">
+                                        <img src="images/esp1.png" alt="Изображение 1">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="images/esp2.png" alt="Изображение 2">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="images/esp3.png" alt="Изображение 3">
+                                    </div>
+                                    <div class="carousel-slide">
+                                        <img src="images/esp4.png" alt="Изображение 3">
+                                    </div>
+                                </div>
+                                
+                                <div class="carousel-preview">
+                                    <button class="preview-btn prev-btn">❮</button>
+                                    
+                                    <div class="preview-item active" data-slide="0">
+                                        <img src="images/esp1.png" alt="Превью 1">
+                                    </div>
+                                    <div class="preview-item" data-slide="1">
+                                        <img src="images/esp2.png" alt="Превью 2">
+                                    </div>
+                                    <div class="preview-item" data-slide="2">
+                                        <img src="images/esp3.png" alt="Превью 3">
+                                    </div>
+                                    <div class="preview-item" data-slide="2">
+                                        <img src="images/esp4.png" alt="Превью 3">
+                                    </div>
+                                    
+                                    <button class="preview-btn next-btn">❯</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="section-3" class="section">
+        <div class="container">
+            <div class="wave-overlay">
+                <svg class="wave-mount" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,75 
+                            C40,95 85,75 100,40
+                            L100,0 L100,100 L0,100 Z" 
+                        fill="currentColor"/>
+                </svg>
+                <svg class="wave" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,77 
+                            C41,96 86,76 101,41
+                            L100,0 L100,100 L0,100 Z" 
+                        fill="currentColor"/>
+                </svg>
+            </div>
+
+            <div class="buy-left-top-block">
+                    <div class="buy-lemma">
+                        <div class="lemma-text">ПОКУПКА</div>
+                    </div>
+                </div>
+            <div class="buy-scale-wrapper">
+            <div class="buy-left-block">
+                
+                <div class="buy-left-middle-block">
+                     <div class="preview-carousel-container" id="previewCarouselContainer">
+                        <div class="preview-carousel">
+                            <div class="preview-carousel-wrapper">
+                                <div class="preview-carousel-preview">
+                                    <div class="preview-carousel-nav">
+                                        <button class="preview-carousel-btn preview-carousel-prev">❮</button>
+                                    </div>
+                                    
+                                    <div class="preview-carousel-items" id="previewCarouselItems">
+                                        <div class="preview-carousel-item preview-carousel-active" data-slide="0">
+                                            <img src="images/1.png" alt="Превью 1">
+                                        </div>
+                                        <div class="preview-carousel-item" data-slide="1">
+                                            <img src="images/2.png" alt="Превью 2">
+                                        </div>
+                                        <div class="preview-carousel-item" data-slide="2">
+                                            <img src="images/3.png" alt="Превью 3">
+                                        </div>
+                                        <div class="preview-carousel-item" data-slide="3">
+                                            <img src="images/4.png" alt="Превью 4">
+                                        </div>
+                                        <div class="preview-carousel-item" data-slide="4">
+                                            <img src="images/5.png" alt="Превью 5">
+                                        </div>
+                                        <div class="preview-carousel-item" data-slide="5">
+                                            <img src="images/6.png" alt="Превью 6">
+                                        </div>
+                                        <div class="preview-carousel-item" data-slide="6">
+                                            <img src="images/7.png" alt="Превью 7">
+                                        </div>
+                                        <div class="preview-carousel-item" data-slide="7">
+                                            <img src="images/8.png" alt="Превью 8">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="preview-carousel-nav">
+                                        <button class="preview-carousel-btn preview-carousel-next">❮</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="preview-carousel-main">
+                                    <div class="preview-carousel-slides">
+                                        <div class="preview-carousel-slide">
+                                            <img src="images/1.png" alt="Изображение 1">
+                                        </div>
+                                        <div class="preview-carousel-slide">
+                                            <img src="images/2.png" alt="Изображение 2">
+                                        </div>
+                                        <div class="preview-carousel-slide">
+                                            <img src="images/3.png" alt="Изображение 3">
+                                        </div>
+                                        <div class="preview-carousel-slide">
+                                            <img src="images/4.png" alt="Изображение 4">
+                                        </div>
+                                        <div class="preview-carousel-slide">
+                                            <img src="images/5.png" alt="Изображение 5">
+                                        </div>
+                                        <div class="preview-carousel-slide">
+                                            <img src="images/6.png" alt="Изображение 6">
+                                        </div>
+                                        <div class="preview-carousel-slide">
+                                            <img src="images/7.png" alt="Изображение 7">
+                                        </div>
+                                        <div class="preview-carousel-slide">
+                                            <img src="images/8.png" alt="Изображение 8">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="buy-left-bottom-block">
+                    <div class="scalable-func-content">
+                        <div class="func-wrapper">
+                            <div class="func-container">
+                                <div class="func-section">
+                                    <div class="func-section-title">ФУНКЦИОНАЛ</div>
+                                </div>
+                                
+                                <div class="func-item">
+                                    <div class="func-item-title">ESP players:</div>
+                                    <div class="func-item-content">Enemy only, player colors by team, fade distance, semibox, health bar, skeleton, nickname, team, health, distance, maximum distance (m), skeleton thickness, semibox thickness.</div>
+                                </div>
+                                
+                                <div class="func-item">
+                                    <div class="func-item-title">ESP loot:</div>
+                                    <div class="func-item-content">Name, sorted by category, color.</div>
+                                </div>
+                                
+                                <div class="func-item">
+                                    <div class="func-item-title">RADAR:</div>
+                                    <div class="func-item-content">Radar scale, radar moving, player direction.</div>
+                                </div>
+                                
+                                <div class="func-item">
+                                    <div class="func-item-title">MISC:</div>
+                                    <div class="func-item-content">Spectators count, show bot blayer, battle mode.</div>
+                                </div>
+                                
+                                <div class="func-item">
+                                    <div class="func-item-title">CONFIG:</div>
+                                    <div class="func-item-content">Save config, load config.</div>
+                                </div>
+                                
+                                <div class="func-item">
+                                    <div class="func-item-title">OTHER:</div>
+                                    <div class="func-item-content">Full Russian language support.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="buy-right-block">
+                <div class="buy-middle-block">
+                    <div class="scalable-pay-content">
+                        <div class="pay-wrapper">
+                            <div class="pay-title">КУПИТЬ</div>
+                            <div class="pay-instruction">ИНСТРУКЦИЯ ПО ПОКУПКЕ</div>
+                            
+                            <div class="slider-container">
+                                <div class="slider-labels">
+                                    <div class="slider-label active" data-value="0">1 ДЕНЬ</div>
+                                    <div class="slider-label" data-value="1">7 ДНЕЙ</div>
+                                    <div class="slider-label" data-value="2">30 ДНЕЙ</div>
+                                    <div class="slider-label" data-value="3">90 ДНЕЙ</div>
+                                </div>
+                                
+                                <div class="slider-track" id="track">
+                                    <div class="slider-progress" id="progress"></div>
+                                    <div class="slider-marks">
+                                        <div class="slider-mark active"></div>
+                                        <div class="slider-mark"></div>
+                                        <div class="slider-mark"></div>
+                                        <div class="slider-mark"></div>
+                                    </div>
+                                    <div class="slider-thumb" id="thumb"></div>
+                                </div>
+                            </div>
+
+                            <div class="pay-amount-container">
+                                <div class="pay-total-title">Итого к оплате</div>
+                                <div class="pay-total-amount">000 ₽</div>
+                                <div class="pay-button">ОПЛАТИТЬ</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="buy-bottom-block">
+                    <div class="scalable-requirement-content">
+                        <div class="requirement-wrapper">
+                            <div class="requirement-title">СИСТЕМНЫЕ ТРЕБОВАНИЯ</div>
+
+                            <div class="requirement-container">
+                                <div class="requirement-item">
+                                    <div class="requirement-item-title">Платформа:</div>
+                                    <div class="requirement-item-content">Steam</div>
+                                </div>
+
+                                <div class="requirement-item">
+                                    <div class="requirement-item-title">Античит:</div>
+                                    <div class="requirement-item-content">BattleEye, Xenuine</div>
+                                </div>
+
+                                <div class="requirement-item">
+                                    <div class="requirement-item-title">Обход записи в OBS:</div>
+                                    <div class="requirement-item-content">Да</div>
+                                </div>
+
+                                <div class="requirement-item">
+                                    <div class="requirement-item-title">Поддерживаемые режимы игры:</div>
+                                    <div class="requirement-item-content">Оконный, Безрамочный</div>
+                                </div>
+
+                                <div class="requirement-item">
+                                    <div class="requirement-item-title">Поддерживаемые процессоры:</div>
+                                    <div class="requirement-item-content">Intel, AMD</div>
+                                </div>
+
+                                <div class="requirement-item">
+                                    <div class="requirement-item-title">Поддерживаемые системы:</div>
+                                    <div class="requirement-item-content">Windows 10-11 x64</div>
+                                </div>
+
+                                <div class="requirement-item">
+                                    <div class="requirement-item-title">Поддерживаемые сборки ОС:</div>
+                                    <div class="requirement-item-content">Начиная с Windows 10 1607 до Windows 11 25H2</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    <div class="lowerRunningLine">
+        <div class="marquee-wrapper" id="marqueeContainerBottom">
+            <span class="marquee-text">
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+</html>
