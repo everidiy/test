@@ -315,7 +315,7 @@
                     <div class="scalable-pay-content">
                         <div class="pay-wrapper">
                             <div class="pay-title">КУПИТЬ</div>
-                            <div class="pay-instruction">ИНСТРУКЦИЯ ПО ПОКУПКЕ</div>
+                            <div class="pay-instruction" id="payInstructionTrigger">ИНСТРУКЦИЯ ПО ПОКУПКЕ</div>
                             
                             <div class="slider-container">
                                 <div class="slider-labels">
@@ -394,6 +394,22 @@
             </div>
         </div>
     </section>
+    <div class="pay-instruction-modal-overlay" id="payInstructionModal" aria-hidden="true">
+        <div class="pay-instruction-modal" role="dialog" aria-modal="true" aria-labelledby="payInstructionModalTitle">
+            <button type="button" class="pay-instruction-modal-close" id="payInstructionModalClose" aria-label="Закрыть">×</button>
+            <h3 class="pay-instruction-modal-title" id="payInstructionModalTitle">Инструкция по покупке читов</h3>
+            <p class="pay-instruction-modal-text">
+                Многие клиенты спрашивают нас о том, как правильно купить чит и есть ли какие-либо гарантии что это не обман?
+                Все наши товары оплачиваются через платёжный сервис <a href="https://oplata.info" target="_blank" rel="noopener noreferrer">Oplata.info</a>,
+                который работает уже десятки лет. <br>
+                После оплаты у каждого клиента создается личный кабинет по вашему Email адресу и введя его, вы будете видеть все свои покупки
+                и информацию по настройке каждого товара.
+            </p>
+            <div class="pay-instruction-modal-video-wrap">
+                <video class="pay-instruction-modal-video" controls preload="none"></video>
+            </div>
+        </div>
+    </div>
     <div class="lowerRunningLine">
         <div class="marquee-wrapper" id="marqueeContainerBottom">
             <span class="marquee-text">
