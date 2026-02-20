@@ -254,14 +254,37 @@ html {
 }
 
 .main-previewesp {
-    max-width: 90%;       /* Максимальная ширина 80% от родителя */
-    max-height: 90%;      /* Максимальная высота 80% от родителя */
-    height: auto;         /* Сохраняем пропорции */
-    width: auto;          /* Сохраняем пропорции */
-    object-fit: contain;  /* Вмещаем изображение без обрезки */
-    z-index: 3;
-    margin-top: auto; /* Автоматический отступ сверху толкает вниз */
-    align-self: center; /* Центрируем по горизонтали */
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    margin-top: 0;
+    align-self: center;
+}
+
+.main-previewesp-composite {
+    position: relative;
+    width: min(96%, 690px);
+    aspect-ratio: 16 / 10;
+    max-height: min(70vh, 560px);
+    margin: 0 auto;
+}
+
+.main-previewesp-overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+}
+
+.main-previewesp-overlay-1 {
+    z-index: 4;
+}
+
+.main-previewesp-overlay-2 {
+    z-index: 5;
 }
 
 @media (max-width: 768px) {
@@ -333,12 +356,16 @@ html {
 
     #section-1 .main-previewesp {
         margin-top: 0;
-        max-width: min(98%, 760px);
+    }
+
+    #section-1 .main-previewesp-composite {
+        width: clamp(500px, 28vw, 640px);
+        max-height: clamp(390px, 50vh, 520px);
     }
 
     #section-1 .aspect-ratio-container {
-        width: min(96%, 760px);
-        max-width: 760px;
+        width: clamp(560px, 31vw, 700px);
+        max-width: 700px;
         max-height: none;
         margin: 0 auto;
     }
@@ -371,6 +398,11 @@ html {
 
     .main-right-block {
         transform: none;
+    }
+
+    .main-previewesp-composite {
+        width: min(80%, 420px);
+        max-height: 34vh;
     }
 }
 
