@@ -453,6 +453,7 @@ function adaptiveScale() {
 
 function layoutSection3Mobile() {
     const section3 = document.getElementById('section-3');
+    const topBlock = document.querySelector('#section-3 .buy-left-top-block');
     const wrapper = document.querySelector('#section-3 .buy-scale-wrapper');
     const preview = document.getElementById('previewCarouselContainer');
     const func = document.querySelector('.scalable-func-content');
@@ -461,13 +462,18 @@ function layoutSection3Mobile() {
 
     if (!section3 || !wrapper || !preview || !func || !pay || !requirement) return;
 
+    if (topBlock) {
+        topBlock.style.top = '';
+        topBlock.style.left = '';
+    }
+
     const viewportWidth = window.innerWidth;
     const sidePadding = 12;
     const contentWidth = Math.max(0, viewportWidth - sidePadding * 2);
     const gap = Math.max(8, Math.round(viewportWidth * 0.02));
 
     const wideScale = Math.min(1, contentWidth / 1000);
-    const narrowScale = Math.min(1, contentWidth / 680);
+    const narrowScale = contentWidth / 680;
 
     const previewW = 1000 * wideScale;
     const previewH = 483 * wideScale;
@@ -528,6 +534,7 @@ function layoutSection3Mobile() {
 
 function resetSection3MobileLayout() {
     const section3 = document.getElementById('section-3');
+    const topBlock = document.querySelector('#section-3 .buy-left-top-block');
     const wrapper = document.querySelector('#section-3 .buy-scale-wrapper');
     const preview = document.getElementById('previewCarouselContainer');
     const func = document.querySelector('.scalable-func-content');
@@ -544,6 +551,11 @@ function resetSection3MobileLayout() {
     wrapper.style.top = '';
     wrapper.style.transform = '';
 
+    if (topBlock) {
+        topBlock.style.top = '';
+        topBlock.style.left = '';
+    }
+
     [preview, func, pay, requirement].forEach((node) => {
         node.style.left = '';
         node.style.top = '';
@@ -558,6 +570,7 @@ function layoutSection3Desktop(referenceScale = 1) {
     const container = document.querySelector('#section-3 .container');
     const topBlock = document.querySelector('#section-3 .buy-left-top-block');
     const wrapper = document.querySelector('#section-3 .buy-scale-wrapper');
+    const lowerRunningLine = document.querySelector('.lowerRunningLine');
     const preview = document.getElementById('previewCarouselContainer');
     const func = document.querySelector('.scalable-func-content');
     const pay = document.querySelector('.scalable-pay-content');
@@ -587,12 +600,25 @@ function layoutSection3Desktop(referenceScale = 1) {
 
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
+    const lowerLineHeight = lowerRunningLine ? lowerRunningLine.offsetHeight : 0;
+    const effectiveHeight = Math.max(0, containerHeight - lowerLineHeight);
+    if (topBlock) {
+        const baseTop = 64;
+        const lowHeightThreshold = 1000;
+        const extraTop = effectiveHeight < lowHeightThreshold
+            ? Math.min(24, Math.max(0, Math.round((lowHeightThreshold - effectiveHeight) * 0.4)))
+            : 0;
+
+        topBlock.style.top = `${baseTop + extraTop}px`;
+        topBlock.style.left = '0px';
+    }
+
     const topReserved = topBlock
         ? (topBlock.offsetTop + topBlock.offsetHeight + TOP_GAP)
         : 170;
 
     const scaleByWidth = (containerWidth - SIDE_PADDING * 2) / baseWidth;
-    const scaleByHeight = (containerHeight - topReserved - BOTTOM_PADDING) / baseHeight;
+    const scaleByHeight = (effectiveHeight - topReserved - BOTTOM_PADDING) / baseHeight;
     const fitScale = Math.min(scaleByWidth, scaleByHeight);
     // Keep section 3 in sync with section 2 scaling on desktop (including >1 on 2K/4K).
     const section2Scale = referenceScale;
@@ -712,9 +738,9 @@ function updateAllFontSizes() {
 }
 
 function initParallax() {
-      const elements = [
+    const elements = [
         { element: '.main-biglogo', intensity: 0.015 },
-        { element: '.main-previewesp', intensity: 0.015 },
+        { element: '.main-previewesp-composite', intensity: 0.015 },
         { element: '#responsive-container', intensity: 0.01 },
     ];
     
