@@ -286,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustSectionHeight();
     initParallax();
     initFloatingNavigation();
+    initPaymentInstructionModal();
 
     window.addEventListener('resize', adaptiveScale);
     window.addEventListener('resize', adjustSectionHeight);
@@ -345,7 +346,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const totalSlides = slides.length;
             
             function updateCarousel() {
-                carouselSlides.style.transform = `translateY(-${currentSlide * 100}%)`;
+                slides.forEach((slide, index) => {
+                    slide.classList.toggle('preview-carousel-slide-active', index === currentSlide);
+                });
                 
                 previewItems.forEach((item, index) => {
                     if (index === currentSlide) {
@@ -404,9 +407,44 @@ document.addEventListener('DOMContentLoaded', function() {
                     updateCarousel();
                 }
             });
+            window.addEventListener('resize', updateCarousel);
             updateCarousel();
             updateScale();
 });
+
+function initPaymentInstructionModal() {
+    const trigger = document.getElementById('payInstructionTrigger');
+    const modal = document.getElementById('payInstructionModal');
+    const closeBtn = document.getElementById('payInstructionModalClose');
+    if (!trigger || !modal || !closeBtn) return;
+
+    function openModal() {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+    }
+
+    function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+    }
+
+    trigger.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) {
+            closeModal();
+        }
+    });
+}
 
 function adaptiveScale() {
     // Section geometry is controlled by CSS.
@@ -425,16 +463,16 @@ function layoutSection3Mobile() {
 
     const viewportWidth = window.innerWidth;
     const sidePadding = 12;
-    const contentWidth = Math.max(320, viewportWidth - sidePadding * 2);
+    const contentWidth = Math.max(0, viewportWidth - sidePadding * 2);
     const gap = Math.max(8, Math.round(viewportWidth * 0.02));
 
     const wideScale = Math.min(1, contentWidth / 1000);
     const narrowScale = Math.min(1, contentWidth / 680);
 
     const previewW = 1000 * wideScale;
-    const previewH = 542 * wideScale;
+    const previewH = 483 * wideScale;
     const funcW = 1000 * wideScale;
-    const funcH = 210 * wideScale;
+    const funcH = 269 * wideScale;
     const payW = 680 * narrowScale;
     const payH = 320 * narrowScale;
     const requirementW = 680 * narrowScale;
@@ -445,15 +483,15 @@ function layoutSection3Mobile() {
 
     let top = gap;
 
-    preview.style.setProperty('--scale-factor', wideScale);
-    preview.style.left = `${leftWide}px`;
-    preview.style.top = `${top}px`;
-    top += previewH + gap;
-
     func.style.setProperty('--scale-factor', wideScale);
     func.style.left = `${leftWide}px`;
     func.style.top = `${top}px`;
     top += funcH + gap;
+
+    preview.style.setProperty('--scale-factor', wideScale);
+    preview.style.left = `${leftWide}px`;
+    preview.style.top = `${top}px`;
+    top += previewH + gap;
 
     pay.style.setProperty('--scale-factor', narrowScale);
     pay.style.left = `${leftNarrow}px`;
@@ -465,9 +503,9 @@ function layoutSection3Mobile() {
     requirement.style.top = `${top}px`;
     top += requirementH + gap;
 
-    wrapper.style.width = `${contentWidth}px`;
+    wrapper.style.width = `${viewportWidth}px`;
     wrapper.style.height = `${Math.ceil(top)}px`;
-    wrapper.style.left = `${sidePadding}px`;
+    wrapper.style.left = '0px';
     wrapper.style.top = '0px';
     wrapper.style.transform = 'none';
 
@@ -528,14 +566,14 @@ function layoutSection3Desktop(referenceScale = 1) {
     if (!section3 || !container || !wrapper || !preview || !func || !pay || !requirement) return;
 
     const PREVIEW_W = 1000;
-    const PREVIEW_H = 542;
+    const PREVIEW_H = 483;
     const FUNC_W = 1000;
-    const FUNC_H = 210;
+    const FUNC_H = 269;
     const PAY_W = 680;
     const PAY_H = 320;
     const REQ_W = 680;
     const REQ_H = 432;
-    const GAP_X = 24;
+    const GAP_X = 20;
     const GAP_Y = 20;
     const SIDE_PADDING = 20;
     const BOTTOM_PADDING = 44;
@@ -677,6 +715,7 @@ function initParallax() {
       const elements = [
         { element: '.main-biglogo', intensity: 0.015 },
         { element: '.main-previewesp', intensity: 0.015 },
+        { element: '#responsive-container', intensity: 0.01 },
     ];
     
     elements.forEach(item => {
@@ -714,21 +753,27 @@ function initParallax() {
 function initFloatingNavigation() {
     const header = document.getElementById('mainHeader');
     const pageNav = document.getElementById('pageNav');
-    const scrollThreshold = 100; // 10% от 1080px
-    
-    window.addEventListener('scroll', () => {
+    const isMobile = window.innerWidth <= 768;
+    const showThreshold = isMobile ? 420 : 120;
+    const hideThreshold = isMobile ? 300 : 90;
+    let isVisible = false;
+
+    function syncFloatingNav() {
         const scrollY = window.scrollY;
-        
-        if (scrollY > scrollThreshold) {
-            // Показываем header, прячем кнопки на странице
-            header.classList.add('visible');
-            pageNav.classList.add('hidden');
-        } else {
-            // Прячем header, показываем кнопки на странице
-            header.classList.remove('visible');
-            pageNav.classList.remove('hidden');
+
+        // Hysteresis prevents flicker and accidental header visibility near top.
+        if (!isVisible && scrollY > showThreshold) {
+            isVisible = true;
+        } else if (isVisible && scrollY < hideThreshold) {
+            isVisible = false;
         }
-    });
+
+        header.classList.toggle('visible', isVisible);
+        pageNav.classList.toggle('hidden', isVisible);
+    }
+
+    window.addEventListener('scroll', syncFloatingNav);
+    syncFloatingNav();
 }
 
 function openExternal(url) {
