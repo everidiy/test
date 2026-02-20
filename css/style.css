@@ -311,6 +311,10 @@ html {
 
 
 @media (min-width: 769px) {
+    #section-1 {
+        --section1-right-visual-width: min(94%, clamp(300px, 31vw, 700px));
+    }
+
     .container {
         display: flex;
         z-index: 2;
@@ -359,13 +363,13 @@ html {
     }
 
     #section-1 .main-previewesp-composite {
-        width: clamp(500px, 28vw, 640px);
-        max-height: clamp(390px, 50vh, 520px);
+        width: var(--section1-right-visual-width);
+        max-height: none;
     }
 
     #section-1 .aspect-ratio-container {
-        width: clamp(560px, 31vw, 700px);
-        max-width: 700px;
+        width: var(--section1-right-visual-width);
+        max-width: none;
         max-height: none;
         margin: 0 auto;
     }
@@ -1974,7 +1978,7 @@ body.modal-open {
     position: absolute !important;
     bottom: auto !important;
     left: 0 !important;
-    transform: scale(1) !important;
+    transform: scale(var(--buy-lemma-scale, 1)) !important;
     transform-origin: top left !important;
 }
 
