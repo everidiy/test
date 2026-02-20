@@ -263,9 +263,16 @@ function scrollToSection(sectionId) {
 function adjustSectionHeight() {
     const sections = document.querySelectorAll('.section');
     const vh = window.innerHeight;
+    const isMobile = window.innerWidth <= 768;
     
     sections.forEach(section => {
+        if (isMobile && section.id === 'section-3') {
+            section.style.minHeight = '';
+            section.style.height = '';
+            return;
+        }
         section.style.minHeight = `${vh}px`;
+        section.style.height = `${vh}px`;
     });
 }
 
@@ -397,78 +404,212 @@ document.addEventListener('DOMContentLoaded', function() {
                     updateCarousel();
                 }
             });
-            
-            window.addEventListener('resize', updateScale);
             updateCarousel();
             updateScale();
 });
 
 function adaptiveScale() {
-    let vw = window.innerWidth;
-    let vh = window.innerHeight;
+    // Section geometry is controlled by CSS.
+    // Keep this hook for backward compatibility without forcing inline styles.
+}
 
-    const section2 = document.getElementById('section-2');
-    const mltb = document.querySelector('.menu-left-top-block');
-    const interfaceLemma = document.querySelector('.interface-lemma');
-    const textDescription = document.querySelector('.rounded-container-text-description');
-    const imageCarousel = document.querySelector('.rounded-container-image-carousel');
-
+function layoutSection3Mobile() {
     const section3 = document.getElementById('section-3');
-    const blmb = document.querySelector('.buy-left-middle-block');
-    const previewCarouselContainer = document.querySelector('.preview-carousel-container');
-    const bltb = document.querySelector('.buy-left-top-block');
-    const blbb = document.querySelector('.buy-left-bottom-block');
-    const scalableFuncContent = document.querySelector('.scalable-func-content');
-    const funcWrapper = document.querySelector('.func-wrapper');
-    const funcSection = document.querySelector('.func-section');
-    const scalablePayContent = document.querySelector('.scalable-pay-content');
-    const bmb = document.querySelector('.buy-middle-block');
-    const scalableRequirementContent = document.querySelector('.scalable-requirement-content');
-    const bbb = document.querySelector('.buy-bottom-block');
+    const wrapper = document.querySelector('#section-3 .buy-scale-wrapper');
+    const preview = document.getElementById('previewCarouselContainer');
+    const func = document.querySelector('.scalable-func-content');
+    const pay = document.querySelector('.scalable-pay-content');
+    const requirement = document.querySelector('.scalable-requirement-content');
 
-    if (vw > 768) {
-    }
-    else { // mobile
-        // SECTION 2
-        // SECTION 2
-        // SECTION 2
+    if (!section3 || !wrapper || !preview || !func || !pay || !requirement) return;
 
-        //section2.style.setProperty('height', '150vh');
-        //mltb.style.setProperty('height', '60px');
-        //interfaceLemma.style.setProperty('transform-origin', 'center left');
+    const viewportWidth = window.innerWidth;
+    const sidePadding = 12;
+    const contentWidth = Math.max(320, viewportWidth - sidePadding * 2);
+    const gap = Math.max(8, Math.round(viewportWidth * 0.02));
 
-        //textDescription.style.setProperty('right', '2.2%');
-        //textDescription.style.setProperty('width', '95.6%');
-        //imageCarousel.style.setProperty('width', '95.6%');
-        // Keep section 3 geometry identical to desktop even in emulation.
-    }
+    const wideScale = Math.min(1, contentWidth / 1000);
+    const narrowScale = Math.min(1, contentWidth / 680);
 
-    // SECTION 3 (single geometry mode for all viewport widths)
-    section3.style.setProperty('height', '100vh');
-    bltb.style.setProperty('height', '20%');
-    blmb.style.setProperty('height', '70%');
-    previewCarouselContainer.style.setProperty('height', '500px');
-    previewCarouselContainer.style.setProperty('width', '1000px');
-    previewCarouselContainer.style.setProperty('transform-origin', 'bottom right');
-    previewCarouselContainer.style.setProperty('right', '0.5vh');
-    previewCarouselContainer.style.setProperty('bottom', '0.5vh');
-    previewCarouselContainer.style.setProperty('top', 'auto');
-    scalableFuncContent.style.setProperty('width', '1000px');
-    scalableFuncContent.style.setProperty('height', '210px');
-    scalableFuncContent.style.setProperty('right', '0.5vh');
-    scalableFuncContent.style.setProperty('top', '0.5vh');
-    funcWrapper.style.setProperty('width', '1000px');
-    funcWrapper.style.setProperty('height', '210px');
-    funcSection.style.setProperty('padding', '0px 0px 0px 0px');
-    blbb.style.setProperty('height', '30%');
-    bmb.style.setProperty('height', '51.5%');
-    scalablePayContent.style.setProperty('left', '0.5vh');
-    scalablePayContent.style.setProperty('bottom', '0.5vh');
-    scalablePayContent.style.setProperty('top', 'auto');
-    scalablePayContent.style.setProperty('transform-origin', 'bottom left');
-    // bbb.style.setProperty('height', '30.5%');
-    scalableRequirementContent.style.setProperty('left', '0.5vh');
-    scalableRequirementContent.style.setProperty('top', '0.5vh');
+    const previewW = 1000 * wideScale;
+    const previewH = 542 * wideScale;
+    const funcW = 1000 * wideScale;
+    const funcH = 210 * wideScale;
+    const payW = 680 * narrowScale;
+    const payH = 320 * narrowScale;
+    const requirementW = 680 * narrowScale;
+    const requirementH = 432 * narrowScale;
+
+    const leftWide = sidePadding + (contentWidth - previewW) / 2;
+    const leftNarrow = sidePadding + (contentWidth - payW) / 2;
+
+    let top = gap;
+
+    preview.style.setProperty('--scale-factor', wideScale);
+    preview.style.left = `${leftWide}px`;
+    preview.style.top = `${top}px`;
+    top += previewH + gap;
+
+    func.style.setProperty('--scale-factor', wideScale);
+    func.style.left = `${leftWide}px`;
+    func.style.top = `${top}px`;
+    top += funcH + gap;
+
+    pay.style.setProperty('--scale-factor', narrowScale);
+    pay.style.left = `${leftNarrow}px`;
+    pay.style.top = `${top}px`;
+    top += payH + gap;
+
+    requirement.style.setProperty('--scale-factor', narrowScale);
+    requirement.style.left = `${leftNarrow}px`;
+    requirement.style.top = `${top}px`;
+    top += requirementH + gap;
+
+    wrapper.style.width = `${contentWidth}px`;
+    wrapper.style.height = `${Math.ceil(top)}px`;
+    wrapper.style.left = `${sidePadding}px`;
+    wrapper.style.top = '0px';
+    wrapper.style.transform = 'none';
+
+    preview.style.right = 'auto';
+    preview.style.bottom = 'auto';
+    preview.style.transformOrigin = 'top left';
+    func.style.right = 'auto';
+    func.style.bottom = 'auto';
+    func.style.transformOrigin = 'top left';
+    pay.style.right = 'auto';
+    pay.style.bottom = 'auto';
+    pay.style.transformOrigin = 'top left';
+    requirement.style.right = 'auto';
+    requirement.style.bottom = 'auto';
+    requirement.style.transformOrigin = 'top left';
+
+    section3.classList.remove('section3-js-fixed');
+    section3.classList.add('section3-mobile-js');
+}
+
+function resetSection3MobileLayout() {
+    const section3 = document.getElementById('section-3');
+    const wrapper = document.querySelector('#section-3 .buy-scale-wrapper');
+    const preview = document.getElementById('previewCarouselContainer');
+    const func = document.querySelector('.scalable-func-content');
+    const pay = document.querySelector('.scalable-pay-content');
+    const requirement = document.querySelector('.scalable-requirement-content');
+
+    if (!section3 || !wrapper || !preview || !func || !pay || !requirement) return;
+
+    section3.classList.remove('section3-mobile-js');
+    section3.classList.remove('section3-js-fixed');
+    wrapper.style.height = '';
+    wrapper.style.width = '';
+    wrapper.style.left = '';
+    wrapper.style.top = '';
+    wrapper.style.transform = '';
+
+    [preview, func, pay, requirement].forEach((node) => {
+        node.style.left = '';
+        node.style.top = '';
+        node.style.right = '';
+        node.style.bottom = '';
+        node.style.transformOrigin = '';
+    });
+}
+
+function layoutSection3Desktop(referenceScale = 1) {
+    const section3 = document.getElementById('section-3');
+    const container = document.querySelector('#section-3 .container');
+    const topBlock = document.querySelector('#section-3 .buy-left-top-block');
+    const wrapper = document.querySelector('#section-3 .buy-scale-wrapper');
+    const preview = document.getElementById('previewCarouselContainer');
+    const func = document.querySelector('.scalable-func-content');
+    const pay = document.querySelector('.scalable-pay-content');
+    const requirement = document.querySelector('.scalable-requirement-content');
+
+    if (!section3 || !container || !wrapper || !preview || !func || !pay || !requirement) return;
+
+    const PREVIEW_W = 1000;
+    const PREVIEW_H = 542;
+    const FUNC_W = 1000;
+    const FUNC_H = 210;
+    const PAY_W = 680;
+    const PAY_H = 320;
+    const REQ_W = 680;
+    const REQ_H = 432;
+    const GAP_X = 24;
+    const GAP_Y = 20;
+    const SIDE_PADDING = 20;
+    const BOTTOM_PADDING = 44;
+    const TOP_GAP = 26;
+
+    const baseWidth = PREVIEW_W + GAP_X + PAY_W;
+    const baseHeight = Math.max(PREVIEW_H + GAP_Y + FUNC_H, PAY_H + GAP_Y + REQ_H);
+
+    // Apply desktop fixed-mode class before measurements so offsets are read from final desktop CSS.
+    section3.classList.add('section3-js-fixed');
+
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    const topReserved = topBlock
+        ? (topBlock.offsetTop + topBlock.offsetHeight + TOP_GAP)
+        : 170;
+
+    const scaleByWidth = (containerWidth - SIDE_PADDING * 2) / baseWidth;
+    const scaleByHeight = (containerHeight - topReserved - BOTTOM_PADDING) / baseHeight;
+    const fitScale = Math.min(scaleByWidth, scaleByHeight);
+    // Keep section 3 in sync with section 2 scaling on desktop (including >1 on 2K/4K).
+    const section2Scale = referenceScale;
+    const scale = Math.max(0.1, Math.min(section2Scale, fitScale));
+
+    const visualWidth = baseWidth * scale;
+    const visualHeight = baseHeight * scale;
+    // Anchor to top reserved area to avoid visual drift to the bottom.
+    const top = topReserved;
+    const left = (containerWidth - visualWidth) / 2;
+    const section3Height = Math.ceil(top + visualHeight + BOTTOM_PADDING);
+
+    // Avoid static 100vh empty space when width changes and content scales down.
+    section3.style.height = `${section3Height}px`;
+    section3.style.minHeight = `${section3Height}px`;
+
+    wrapper.style.width = `${baseWidth}px`;
+    wrapper.style.height = `${baseHeight}px`;
+    wrapper.style.left = `${Math.round(left)}px`;
+    wrapper.style.top = `${Math.round(top)}px`;
+    wrapper.style.transform = `scale(${scale})`;
+    wrapper.style.transformOrigin = 'top left';
+
+    preview.style.setProperty('--scale-factor', 1);
+    preview.style.left = '0px';
+    preview.style.top = '0px';
+    preview.style.right = 'auto';
+    preview.style.bottom = 'auto';
+    preview.style.transformOrigin = 'top left';
+
+    func.style.setProperty('--scale-factor', 1);
+    func.style.left = '0px';
+    const leftBottomTop = baseHeight - FUNC_H;
+    const rightBottomTop = baseHeight - REQ_H;
+
+    func.style.top = `${leftBottomTop}px`;
+    func.style.right = 'auto';
+    func.style.bottom = 'auto';
+    func.style.transformOrigin = 'top left';
+
+    pay.style.setProperty('--scale-factor', 1);
+    pay.style.left = `${PREVIEW_W + GAP_X}px`;
+    pay.style.top = '0px';
+    pay.style.right = 'auto';
+    pay.style.bottom = 'auto';
+    pay.style.transformOrigin = 'top left';
+
+    requirement.style.setProperty('--scale-factor', 1);
+    requirement.style.left = `${PREVIEW_W + GAP_X}px`;
+    requirement.style.top = `${rightBottomTop}px`;
+    requirement.style.right = 'auto';
+    requirement.style.bottom = 'auto';
+    requirement.style.transformOrigin = 'top left';
+
+    section3.classList.remove('section3-mobile-js');
 }
 
 function updateScale() {
@@ -502,34 +643,18 @@ function updateScale() {
     interfaceLemma.style.setProperty('--scale-factor', d2scale);
     buyLemma.style.setProperty('--scale-factor', d2scale);
 
-    // Keep section 3 in one visual mode regardless of toolbar/device emulation.
-    // Tune these independently: toolbar emulation and regular site mode.
-    const section3ScaleSite = 1.3;
-    const section3ScaleToolbar = 0.82;
+    // Section 3 geometry is now fully JS-driven.
     const isMobile = window.innerWidth <= 768;
-    const isToolbarLike = window.innerWidth <= 900;
-    const section3BaseScale = isToolbarLike ? section3ScaleToolbar : section3ScaleSite;
-    const section3FitScale = Math.min(1, window.innerWidth / 1920);
-    const section3FixedScale = isMobile ? 1 : (section3BaseScale * section3FitScale);
-    section3.style.setProperty('--section-3-scale', section3FixedScale);
+    section3.style.setProperty('--section-3-scale', 1);
     buyLemma.style.setProperty('--scale-factor', 1);
 
     if (isMobile) {
-        // Fit each fixed-size section-3 card into mobile viewport width.
-        const mobileContentWidth = Math.max(320, window.innerWidth - 24);
-        const previewScale = Math.min(1, mobileContentWidth / 1000);
-        const wideCardScale = Math.min(1, mobileContentWidth / 1000);
-        const narrowCardScale = Math.min(1, mobileContentWidth / 680);
-
-        previewCarouselContainer.style.setProperty('--scale-factor', previewScale);
-        funcContent.style.setProperty('--scale-factor', wideCardScale);
-        payContent.style.setProperty('--scale-factor', narrowCardScale);
-        requirementContent.style.setProperty('--scale-factor', narrowCardScale);
+        section3.style.height = '';
+        section3.style.minHeight = '';
+        layoutSection3Mobile();
     } else {
-        previewCarouselContainer.style.setProperty('--scale-factor', 1);
-        funcContent.style.setProperty('--scale-factor', 1);
-        payContent.style.setProperty('--scale-factor', 1);
-        requirementContent.style.setProperty('--scale-factor', 1);
+        resetSection3MobileLayout();
+        layoutSection3Desktop(scale);
     }
 
     console.log(scale);
@@ -609,3 +734,5 @@ function initFloatingNavigation() {
 function openExternal(url) {
     window.open(url, '_blank');
 }
+
+
