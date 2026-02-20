@@ -706,11 +706,14 @@ function updateScale() {
     carouseleContent.style.setProperty('--scale-factor', scale);
     interfaceLemma.style.setProperty('--scale-factor', d2scale);
     buyLemma.style.setProperty('--scale-factor', d2scale);
+    buyLemma.style.setProperty('--buy-lemma-scale', d2scale);
 
     // Section 3 geometry is now fully JS-driven.
     const isMobile = window.innerWidth <= 768;
     section3.style.setProperty('--section-3-scale', 1);
-    buyLemma.style.setProperty('--scale-factor', 1);
+    if (isMobile) {
+        buyLemma.style.setProperty('--buy-lemma-scale', 1);
+    }
 
     if (isMobile) {
         section3.style.height = '';
